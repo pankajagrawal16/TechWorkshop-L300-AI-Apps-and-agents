@@ -30,6 +30,12 @@ endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 deployment = os.getenv("gpt_deployment")
 api_key = os.getenv("AZURE_OPENAI_KEY")
 
+import os
+from opentelemetry.instrumentation.openai_v2 import OpenAIInstrumentor
+
+OpenAIInstrumentor().instrument()
+os.environ["AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED"] = "true"
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(os.path.dirname(current_dir))  # Go up 2 levels from src/tools/ to root
 PROMPT_PATH = os.path.join(project_root, 'prompts', 'DiscountLogicPrompt.txt')

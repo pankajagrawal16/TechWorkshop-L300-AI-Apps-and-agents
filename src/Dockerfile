@@ -1,5 +1,5 @@
 
-FROM python:3.12-slim
+FROM --platform=linux/amd64 python:3.11-slim
 
 # Upgrade pip and system packages to reduce vulnerabilities
 RUN apt-get update && apt-get upgrade -y && pip install --upgrade pip && rm -rf /var/lib/apt/lists/*

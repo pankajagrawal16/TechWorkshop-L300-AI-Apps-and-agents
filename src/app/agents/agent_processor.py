@@ -39,6 +39,12 @@ _executor = ThreadPoolExecutor(max_workers=8)
 # Cache for toolset configurations to avoid repeated initialization
 _toolset_cache: Dict[str, ToolSet] = {}
 
+import os
+from opentelemetry.instrumentation.openai_v2 import OpenAIInstrumentor
+
+OpenAIInstrumentor().instrument()
+os.environ["AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED"] = "true"
+
 class AgentProcessor:
     def __init__(self, project_client, assistant_id, agent_type: str, thread_id=None):
         self.project_client = project_client
